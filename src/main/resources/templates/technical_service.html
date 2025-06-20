@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Technical Service</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9e9e9;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+<h1>Technical Service</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Service Start Time</th>
+        <th>Service End Time</th>
+        <th>Car License Plate</th>
+        <th>Car Brand</th>
+        <th>Car Model</th>
+        <th>Mechanic Name</th>
+        <th>Description</th>
+        <th>Report Created At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="service : ${technicalServices}">
+        <td th:text="${service.id}"></td>
+        <td th:text="${#temporals.format(service.serviceStartTime, 'dd.MM.yyyy HH:mm')}"></td>
+        <td th:text="${#temporals.format(service.serviceEndTime, 'dd.MM.yyyy HH:mm')}"></td>
+        <td th:text="${service.car.licensePlate}"></td>
+        <td th:text="${service.car.brand}"></td>
+        <td th:text="${service.car.model}"></td>
+        <td th:text="${service.mechanic.lastname + ' ' + service.mechanic.firstname + ' ' + service.mechanic.surname}"></td>
+        <td th:text="${service.description}"></td>
+        <td th:text="${#temporals.format(service.reportCreatedAt, 'dd.MM.yyyy HH:mm')}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

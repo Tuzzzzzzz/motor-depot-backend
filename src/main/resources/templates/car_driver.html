@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Car-Driver</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9e9e9;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+<h1>Car-Driver</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Car License Plate</th>
+        <th>Car Brand</th>
+        <th>Car Model</th>
+        <th>Car Body Width</th>
+        <th>Car Body Height</th>
+        <th>Car Body Length</th>
+        <th>Car Cargo Capacity</th>
+        <th>Driver Firstname</th>
+        <th>Driver Lastname</th>
+        <th>Driver Surname</th>
+        <th>Driver Phone Number</th>
+        <th>Driver Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="carDriver : ${carDriverList}">
+        <td th:text="${carDriver.car.licensePlate}"></td>
+        <td th:text="${carDriver.car.brand}"></td>
+        <td th:text="${carDriver.car.model}"></td>
+        <td th:text="${carDriver.car.bodyWidth}"></td>
+        <td th:text="${carDriver.car.bodyHeight}"></td>
+        <td th:text="${carDriver.car.bodyLength}"></td>
+        <td th:text="${carDriver.car.cargoCapacity}"></td>
+        <td th:text="${carDriver.driver.firstname}"></td>
+        <td th:text="${carDriver.driver.lastname}"></td>
+        <td th:text="${carDriver.driver.surname}"></td>
+        <td th:text="${carDriver.driver.phoneNumber}"></td>
+        <td th:text="${carDriver.driver.email}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

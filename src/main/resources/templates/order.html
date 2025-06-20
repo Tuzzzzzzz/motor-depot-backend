@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transport Orders</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9e9e9;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+<h1>Transport Orders</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Consumer</th>
+        <th>Car</th>
+        <th>Driver</th>
+        <th>Cost</th>
+        <th>Route</th>
+        <th>Dates</th>
+        <th>Cargo Dimensions</th>
+        <th>Created At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+
+        <td>
+            <div th:text="${order.consumer.lastname + ' ' + order.consumer.firstname + ' ' + order.consumer.surname}"></div>
+            <div th:text="${order.consumer.phoneNumber}"></div>
+            <div th:text="${order.consumer.email}"></div>
+        </td>
+
+        <td>
+            <div th:text="${order.car.brand + ' ' + order.car.model}"></div>
+            <div th:text="${order.car.licensePlate}"></div>
+            <div th:text="'Capacity: ' + ${order.car.cargoCapacity}"></div>
+        </td>
+
+        <td>
+            <div th:text="${order.driver.lastname + ' ' + order.driver.firstname + ' ' + order.driver.surname}"></div>
+            <div th:text="${order.driver.phoneNumber}"></div>
+            <div th:text="${order.driver.email}"></div>
+        </td>
+
+        <td th:text="${'₽' + #numbers.formatDecimal(order.cost, 1, 2)}"></td>
+
+        <td>
+            <div th:text="'From: ' + ${order.departurePlace}"></div>
+            <div th:text="'To: ' + ${order.arrivalPlace}"></div>
+        </td>
+
+        <td>
+            <div th:text="'Departure: ' + ${#temporals.format(order.departureTime, 'dd.MM.yyyy HH:mm')}"></div>
+            <div th:text="'Arrival: ' + ${#temporals.format(order.arrivalTime, 'dd.MM.yyyy HH:mm')}"></div>
+        </td>
+
+        <td>
+            <div th:text="'Weight: ' + ${order.weight} + ' kg'"></div>
+            <div th:text="'W: ' + ${order.width} + ' cm'"></div>
+            <div th:text="'H: ' + ${order.height} + ' cm'"></div>
+            <div th:text="'L: ' + ${order.length} + ' cm'"></div>
+        </td>
+
+        <td th:text="${#temporals.format(order.createdAt, 'dd.MM.yyyy HH:mm')}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

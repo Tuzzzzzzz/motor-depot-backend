@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: motor-depot
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./initdb/schema.sql:/docker-entrypoint-initdb.d/00_schema.sql
+      - ./initdb/triggers.sql:/docker-entrypoint-initdb.d/01_triggers.sql
+#      - ./initdb/insert.sql:/docker-entrypoint-initdb.d/11_insert.sql
+volumes:
+  postgres_data:
