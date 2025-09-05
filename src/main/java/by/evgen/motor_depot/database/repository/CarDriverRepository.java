@@ -116,7 +116,7 @@ public class CarDriverRepository {
 
         List<CarDriver> carDriverList = jdbcTemplate.query(
                 sql,
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     return toCarDriver(rs);
                 },
                 width,
@@ -198,7 +198,7 @@ public class CarDriverRepository {
 
         List<CarDriver> carDriverList = jdbcTemplate.query(
                 sql,
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     return toCarDriver(rs);
                 },
                 pageable.getPageSize(),
@@ -231,7 +231,7 @@ public class CarDriverRepository {
 
         return jdbcTemplate.query(
                 sql,
-                (rs, _) -> toCarDriver(rs)
+                (rs, rowNum) -> toCarDriver(rs)
         );
     }
 

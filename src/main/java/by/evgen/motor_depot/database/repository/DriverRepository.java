@@ -48,7 +48,7 @@ public class DriverRepository {
         try {
             Driver driver = jdbcTemplate.queryForObject(
                     "SELECT * FROM driver WHERE id = ?",
-                    (rs, _) -> toDriver(rs),
+                    (rs, rowNum) -> toDriver(rs),
                     id
             );
             return Optional.ofNullable(driver);
@@ -61,7 +61,7 @@ public class DriverRepository {
 
         List<Driver> drivers = jdbcTemplate.query(
                 "SELECT * FROM driver ORDER BY id LIMIT ? OFFSET ?",
-                (rs, _) -> toDriver(rs),
+                (rs, rowNum) -> toDriver(rs),
                 pageable.getPageSize(),
                 pageable.getOffset()
         );
@@ -110,7 +110,7 @@ public class DriverRepository {
     public List<Driver> findAllForExport(){
         return jdbcTemplate.query(
                 "SELECT * FROM driver ORDER BY id",
-                (rs, _) -> toDriver(rs)
+                (rs, rowNum) -> toDriver(rs)
         );
     }
 }

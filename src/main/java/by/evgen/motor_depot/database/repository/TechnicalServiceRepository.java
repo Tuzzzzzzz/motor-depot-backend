@@ -34,7 +34,7 @@ public class TechnicalServiceRepository {
                             description
                         ) VALUES (?, ?, ?, ?, ?)
                         RETURNING id, report_created_at""",
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     ts.setId(rs.getLong("id"));
                     ts.setReportCreatedAt(rs.getObject("report_created_at", LocalDateTime.class));
                     return ts;
@@ -93,7 +93,7 @@ public class TechnicalServiceRepository {
                            JOIN car c ON ts.car_id = c.id
                            JOIN mechanic m ON ts.mechanic_id = m.id
                            WHERE ts.id = ?""",
-                    (rs, _) -> toTechnicalService(rs),
+                    (rs, rowNum) -> toTechnicalService(rs),
                     id
             );
             return Optional.ofNullable(ts);
@@ -133,7 +133,7 @@ public class TechnicalServiceRepository {
                          JOIN mechanic m ON ts.mechanic_id = m.id
                          ORDER BY ts.report_created_at DESC
                          LIMIT ? OFFSET ?""",
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     return toTechnicalService(rs);
                 },
                 pageable.getPageSize(),
@@ -184,7 +184,7 @@ public class TechnicalServiceRepository {
                            WHERE ts.car_id = ?
                            ORDER BY ts.report_created_at DESC
                            LIMIT ? OFFSET ?""",
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     return toTechnicalService(rs);
                 },
                 carId,
@@ -265,7 +265,7 @@ public class TechnicalServiceRepository {
                         JOIN car c ON ts.car_id = c.id
                         JOIN mechanic m ON ts.mechanic_id = m.id
                         ORDER BY ts.report_created_at DESC""",
-                (rs, _) -> toTechnicalService(rs)
+                (rs, rowNum) -> toTechnicalService(rs)
         );
     }
 
@@ -301,7 +301,7 @@ public class TechnicalServiceRepository {
                            WHERE ts.mechanic_id = ?
                            ORDER BY ts.report_created_at DESC
                            LIMIT ? OFFSET ?""",
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     return toTechnicalService(rs);
                 },
                 mechanicId,

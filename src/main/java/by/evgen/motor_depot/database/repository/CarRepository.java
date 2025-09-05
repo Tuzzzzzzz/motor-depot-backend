@@ -52,7 +52,7 @@ public class CarRepository {
         try {
             Car car = jdbcTemplate.queryForObject(
                     "SELECT * FROM car WHERE id = ?",
-                    (rs, _) -> toCar(rs),
+                    (rs, rowNum) -> toCar(rs),
                     id
             );
             return Optional.ofNullable(car);
@@ -66,7 +66,7 @@ public class CarRepository {
 
         List<Car> cars = jdbcTemplate.query(
                 sql,
-                (rs, _) -> toCar(rs),
+                (rs, rowNum) -> toCar(rs),
                 pageable.getPageSize(),
                 pageable.getOffset()
             );
@@ -113,7 +113,7 @@ public class CarRepository {
                         JOIN car_driver cd ON c.id = cd.car_id
                         WHERE cd.driver_id = ?
                         ORDER BY c.id""",
-                (rs, _) -> toCar(rs),
+                (rs, rowNum) -> toCar(rs),
                 driverId
         );
     }
@@ -134,7 +134,7 @@ public class CarRepository {
     public List<Car> findAllForExport(){
         return jdbcTemplate.query(
                 "SELECT * FROM car ORDER BY id",
-                (rs, _) -> toCar(rs)
+                (rs, rowNum) -> toCar(rs)
         );
     }
 }

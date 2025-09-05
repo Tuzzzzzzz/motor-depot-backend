@@ -43,7 +43,7 @@ public class TransportOrderRepository {
 
         return jdbcTemplate.queryForObject(
                 sql,
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     transportOrder.setId(rs.getLong("id"));
                     transportOrder.setCreatedAt(rs.getObject("created_at", LocalDateTime.class));
                     return transportOrder;
@@ -152,7 +152,7 @@ public class TransportOrderRepository {
 
         List<TransportOrder> transportOrders = jdbcTemplate.query(
                 sql,
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     return toTransportOrder(rs);
                 },
                 carId,
@@ -262,7 +262,7 @@ public class TransportOrderRepository {
 
         List<TransportOrder> transportOrders = jdbcTemplate.query(
                 sql,
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     return toTransportOrder(rs);
                 },
                 consumerId,
@@ -317,7 +317,7 @@ public class TransportOrderRepository {
         try {
             TransportOrder transportOrder = jdbcTemplate.queryForObject(
                     sql,
-                    (rs, _) -> toTransportOrder(rs),
+                    (rs, rowNum) -> toTransportOrder(rs),
                     id
             );
             return Optional.ofNullable(transportOrder);
@@ -375,7 +375,7 @@ public class TransportOrderRepository {
 
         List<TransportOrder> transportOrders = jdbcTemplate.query(
                 sql,
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     return toTransportOrder(rs);
                 },
                 pageable.getPageSize(),
@@ -428,7 +428,7 @@ public class TransportOrderRepository {
 
         return jdbcTemplate.query(
                 sql,
-                (rs, _) -> toTransportOrder(rs)
+                (rs, rowNum) -> toTransportOrder(rs)
         );
     }
 
@@ -483,7 +483,7 @@ public class TransportOrderRepository {
 
         List<TransportOrder> transportOrders = jdbcTemplate.query(
                 sql,
-                (rs, _) -> {
+                (rs, rowNum) -> {
                     return toTransportOrder(rs);
                 },
                 driverId,

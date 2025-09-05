@@ -107,7 +107,7 @@ public class DatabaseFiller {
 
 
     @Transactional
-//    @EventListener(ApplicationReadyEvent.class)
+    @EventListener(ApplicationReadyEvent.class)
     public void fill() {
         List<Long> consumerIds = generatePersons(CONSUMER_COUNT,"""
                 insert into consumer(firstname, lastname, surname, phone_number, email)

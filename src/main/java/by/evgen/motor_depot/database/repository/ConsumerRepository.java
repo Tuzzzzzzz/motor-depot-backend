@@ -48,7 +48,7 @@ public class ConsumerRepository {
         try {
             Consumer consumer = jdbcTemplate.queryForObject(
                     "SELECT * FROM consumer WHERE id = ?",
-                    (rs, _) -> toConsumer(rs),
+                    (rs, rowNum) -> toConsumer(rs),
                     id
             );
             return Optional.ofNullable(consumer);
@@ -61,7 +61,7 @@ public class ConsumerRepository {
 
         List<Consumer> consumers = jdbcTemplate.query(
                 "SELECT * FROM consumer ORDER BY id LIMIT ? OFFSET ?",
-                (rs, _) -> toConsumer(rs),
+                (rs, rowNum) -> toConsumer(rs),
                 pageable.getPageSize(),
                 pageable.getOffset()
         );
@@ -109,7 +109,7 @@ public class ConsumerRepository {
     public List<Consumer> findAllForExport(){
         return jdbcTemplate.query(
                 "SELECT * FROM consumer ORDER BY id",
-                (rs, _) -> toConsumer(rs)
+                (rs, rowNum) -> toConsumer(rs)
         );
     }
 }

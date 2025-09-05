@@ -48,7 +48,7 @@ public class MechanicRepository {
         try {
             Mechanic mechanic = jdbcTemplate.queryForObject(
                     "SELECT * FROM mechanic WHERE id = ?",
-                    (rs, _) -> toMechanic(rs),
+                    (rs, rowNum) -> toMechanic(rs),
                     id
             );
             return Optional.ofNullable(mechanic);
@@ -61,7 +61,7 @@ public class MechanicRepository {
 
         List<Mechanic> mechanics = jdbcTemplate.query(
                 "SELECT * FROM mechanic ORDER BY id LIMIT ? OFFSET ?",
-                (rs, _) -> toMechanic(rs),
+                (rs, rowNum) -> toMechanic(rs),
                 pageable.getPageSize(),
                 pageable.getOffset()
         );
@@ -110,7 +110,7 @@ public class MechanicRepository {
     public List<Mechanic> findAllForExport(){
         return jdbcTemplate.query(
                 "SELECT * FROM mechanic ORDER BY id",
-                (rs, _) -> toMechanic(rs)
+                (rs, rowNum) -> toMechanic(rs)
         );
     }
 }
